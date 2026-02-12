@@ -1,3 +1,4 @@
+import {getPlayerStyle} from "../utils/utils.js";
 
 
 export const Square = ({ value, onSquareClick, isWinningSquare, disabled }) => {

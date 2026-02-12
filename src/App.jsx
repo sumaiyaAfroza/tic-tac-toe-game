@@ -4,7 +4,7 @@ import {AnimatedBackground} from "./component/Animated.Background.jsx";
 import {StatusMessage} from "./component/status.message.jsx";
 import {GlassCard} from "./component/glass.card.jsx";
 import {SidePanel} from "./component/side.panel.jsx";
-import {EMPTY_BOARD} from "./constants/constants.js";
+import {EMPTY_BOARD, PLAYER_O, PLAYER_X} from "./constants/constants.js";
 import {Square} from "./component/square.jsx";
 
 export default function App() {
@@ -12,14 +12,20 @@ export default function App() {
   const [currentMove, setCurrentMove] = useState(0)
   const [history, setHistory] = useState([EMPTY_BOARD])
 
-const currentSquares = history[currentMove]
+  const xIsNext = currentMove % 2 === 0
+  // console.log(xIsNext)
+
+
+  const currentSquares = history[currentMove]
   // console.log(currentSquares)
 
   const handleSquareClick = (index) => {
     // console.log(index)
-    const next= [...]
-
+    const next = [...currentSquares]
+    next[index] = xIsNext ? PLAYER_X : PLAYER_O
+    console.log(next)
   }
+
   const startGame = (mode) => {
     setGameMode(mode)
   }
