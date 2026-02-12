@@ -12,6 +12,10 @@ export default function App() {
     setGameMode(mode)
   }
 
+  const backMenu = () => {
+    setGameMode(null)
+  }
+
   if(!gameMode) {
     return (
       <>
@@ -59,7 +63,7 @@ export default function App() {
                   🔄 New Game
                 </button>
                 <button
-
+                  onClick={backMenu}
                   className="w-full mb-4 px-6 py-4 rounded-xl font-bold text-white bg-gradient-to-r from-purple-500 to-indigo-500 hover:scale-105 transition-all"
                 >
                   🏠 Back to Menu
