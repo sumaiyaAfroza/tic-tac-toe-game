@@ -6,17 +6,19 @@ import {GlassCard} from "./component/glass.card.jsx";
 import {SidePanel} from "./component/side.panel.jsx";
 import {EMPTY_BOARD, PLAYER_O, PLAYER_X} from "./constants/constants.js";
 import {Square} from "./component/square.jsx";
+import {calculateWinner} from "./utils/utils.js";
 
 export default function App() {
   const [gameMode, setGameMode] = useState(null)
   const [currentMove, setCurrentMove] = useState(0)
   const [history, setHistory] = useState([EMPTY_BOARD])
-
   const xIsNext = currentMove % 2 === 0
   // console.log(xIsNext)
-
   const currentSquares = history[currentMove]
   // console.log(currentSquares)
+  const winner = calculateWinner(currentSquares)
+
+
 
   const handleSquareClick = (index) => {
     // console.log(index)
