@@ -15,7 +15,6 @@ export default function App() {
   const xIsNext = currentMove % 2 === 0
   // console.log(xIsNext)
 
-
   const currentSquares = history[currentMove]
   // console.log(currentSquares)
 
@@ -23,7 +22,13 @@ export default function App() {
     // console.log(index)
     const next = [...currentSquares]
     next[index] = xIsNext ? PLAYER_X : PLAYER_O
-    console.log(next)
+    handlePlay(next)
+  }
+
+  const handlePlay = (nextSquares) => {
+    const nextHistory = [...history.slice(0,currentMove +1), nextSquares];
+    setHistory(nextHistory)
+    setCurrentMove(nextHistory.length - 1)
   }
 
   const startGame = (mode) => {
@@ -64,7 +69,7 @@ export default function App() {
             <div className="flex flex-col items-center gap-8">
               <GlassCard className="px-8 py-6 min-w-[280px]">
                 <StatusMessage
-
+                  xIsNext={xIsNext}
                 />
               </GlassCard>
               <GlassCard className="p-6">
@@ -75,6 +80,7 @@ export default function App() {
                         key={index}
                         value={square}
                         onSquareClick={() => handleSquareClick(index)}
+
                       />
                     ))
                   }
@@ -95,12 +101,19 @@ export default function App() {
                   🏠 Back to Menu
                 </button>
                 <div className="space-y-2 max-h-[300px] overflow-y-auto pr-2">
-
+                  {history.map((_, move) => (
+                    <button key={move} onClick={() => {
+                      setCurrentMove(move);
+                      setIsAIThinking(false);
+                    }} className={`w-full px-4 py-2 rounded-lg text-sm font-semibold transition-all ${move === currentMove ? 'bg-white/20 text-white' : 'text-white/50 hover:bg-white/5'}`}>
+                      {move === 0 ? "🎮 Start" : `Move #${move}`}
+                    </button>
+                  ))}
                 </div>
                 <div className="space-y-5">
                   <div className="flex justify-between items-center py-5">
                     <span className="text-white/60">Total Moves</span>
-
+                    <span className="text-2xl font-bold text-white">{currentMove}</span>
                   </div>
                   <div className="h-px bg-white/10" />
                   <div className="flex justify-between items-center">

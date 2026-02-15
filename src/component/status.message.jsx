@@ -1,4 +1,5 @@
 import {PLAYER_O, PLAYER_X} from "../constants/constants.js";
+import {getPlayerStyle} from "../utils/utils.js";
 
 
 export const StatusMessage = ({ winner, isDraw, xIsNext, isAIThinking, gameMode }) => {
@@ -38,13 +39,15 @@ export const StatusMessage = ({ winner, isDraw, xIsNext, isAIThinking, gameMode 
     );
   }
   const currentPlayer = xIsNext ? PLAYER_X : PLAYER_O;
-  const isAIMode = gameMode && gameMode !== 'human';
+  // const isAIMode = gameMode && gameMode !== 'human';
 
 
   return (
     <div className="flex items-center gap-3">
       <span className="text-white/60 font-medium">Next Turn</span>
-
+      <span className={`text-4xl font-black ${getPlayerStyle(currentPlayer, 'text')}`}>
+        { currentPlayer}
+      </span>
     </div>
   );
 };
