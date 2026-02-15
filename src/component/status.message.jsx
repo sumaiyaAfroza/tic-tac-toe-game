@@ -24,7 +24,10 @@ export const StatusMessage = ({ winner, isDraw, xIsNext, isAIThinking, gameMode 
         </span>
         <div className="flex flex-col">
           <span className="text-sm text-white/60 font-medium">Winner</span>
-
+          <span className={`text-4xl font-black ${getPlayerStyle(winner, 'text')}`}>
+            {isAIMode ? (isPlayerWin ? 'You Won!' : 'AI Wins!') : winner}
+            {/* false তাই: 'X' display হবে */}
+          </span>
         </div>
       </div>
     );

@@ -4,7 +4,7 @@ import {AnimatedBackground} from "./component/Animated.Background.jsx";
 import {StatusMessage} from "./component/status.message.jsx";
 import {GlassCard} from "./component/glass.card.jsx";
 import {SidePanel} from "./component/side.panel.jsx";
-import {EMPTY_BOARD, PLAYER_O, PLAYER_X} from "./constants/constants.js";
+import {EMPTY_BOARD, PLAYER_O, PLAYER_X, WINNING_LINES} from "./constants/constants.js";
 import {Square} from "./component/square.jsx";
 import {calculateWinner} from "./utils/utils.js";
 
@@ -18,7 +18,8 @@ export default function App() {
   // console.log(currentSquares)
   const winner = calculateWinner(currentSquares)
 
-
+const winningLine = winner ?
+  WINNING_LINES.find(([a, b, c]) => currentSquares[a] === currentSquares[b] && currentSquares[b] === currentSquares[c]) : null
 
   const handleSquareClick = (index) => {
     // console.log(index)
@@ -71,6 +72,7 @@ export default function App() {
             <div className="flex flex-col items-center gap-8">
               <GlassCard className="px-8 py-6 min-w-[280px]">
                 <StatusMessage
+                  winner={winner}
                   xIsNext={xIsNext}
                 />
               </GlassCard>
@@ -82,6 +84,7 @@ export default function App() {
                         key={index}
                         value={square}
                         onSquareClick={() => handleSquareClick(index)}
+                        isWinningSquare={winningLine}
 
                       />
                     ))
