@@ -49,8 +49,15 @@ export default function App() {
     setGameMode(mode)
   }
 
+  const resetGame = () => {
+    setHistory([EMPTY_BOARD])
+    setCurrentMove(0)
+
+  }
+
   const backMenu = () => {
     setGameMode(null)
+    resetGame()
   }
 
   if(!gameMode) {
@@ -108,7 +115,7 @@ export default function App() {
             {/* Sidebar */}
             <div className="w-full lg:w-80 flex flex-col gap-6">
               <SidePanel title="History" icon="📜">
-                <button className="w-full mb-4 px-6 py-4 rounded-xl font-bold text-white bg-gradient-to-r from-red-500 to-pink-500 hover:scale-105 transition-all">
+                <button onClick={resetGame} className="w-full mb-4 px-6 py-4 rounded-xl font-bold text-white bg-gradient-to-r from-red-500 to-pink-500 hover:scale-105 transition-all">
                   🔄 New Game
                 </button>
                 <button
