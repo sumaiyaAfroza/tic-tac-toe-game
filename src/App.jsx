@@ -18,10 +18,21 @@ export default function App() {
   // console.log(currentSquares)
   const winner = calculateWinner(currentSquares)
 
-const winningLine = winner ?
-  WINNING_LINES.find(([a, b, c]) => currentSquares[a] === currentSquares[b] && currentSquares[b] === currentSquares[c]) : null
+  const winningLine = winner
+    ? WINNING_LINES.find(([a, b, c]) =>
+      currentSquares[a] && // ✅ null check যোগ করুন
+      currentSquares[a] === currentSquares[b] &&
+      currentSquares[b] === currentSquares[c]
+    )
+    : null;
 
   const handleSquareClick = (index) => {
+    // Don't allow clicks if square is filled, game over, or AI is thinking
+    if (currentSquares[index] || winner ) {
+      console.log('Blocked: square filled or winner or AI thinking');
+      return;
+    }
+
     // console.log(index)
     const next = [...currentSquares]
     next[index] = xIsNext ? PLAYER_X : PLAYER_O
@@ -84,7 +95,7 @@ const winningLine = winner ?
                         key={index}
                         value={square}
                         onSquareClick={() => handleSquareClick(index)}
-                        isWinningSquare={winningLine}
+                        isWinningSquare={winningLine?.includes(index)}
 
                       />
                     ))
@@ -109,7 +120,7 @@ const winningLine = winner ?
                   {history.map((_, move) => (
                     <button key={move} onClick={() => {
                       setCurrentMove(move);
-                      setIsAIThinking(false);
+
                     }} className={`w-full px-4 py-2 rounded-lg text-sm font-semibold transition-all ${move === currentMove ? 'bg-white/20 text-white' : 'text-white/50 hover:bg-white/5'}`}>
                       {move === 0 ? "🎮 Start" : `Move #${move}`}
                     </button>
@@ -123,6 +134,9 @@ const winningLine = winner ?
                   <div className="h-px bg-white/10" />
                   <div className="flex justify-between items-center">
                     <span className="text-white/60">Status</span>
+                    <span className={`font-bold ${winner ? 'text-emerald-400' : 'text-amber-400'}`}>
+                      {winner ? '🏁 Finished' : '⚡ Playing'}
+                    </span>
 
                   </div>
                   {gameMode !== 'human' && (
