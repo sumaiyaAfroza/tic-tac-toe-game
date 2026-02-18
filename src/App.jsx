@@ -6,7 +6,7 @@ import {GlassCard} from "./component/glass.card.jsx";
 import {SidePanel} from "./component/side.panel.jsx";
 import {EMPTY_BOARD, PLAYER_O, PLAYER_X, WINNING_LINES} from "./constants/constants.js";
 import {Square} from "./component/square.jsx";
-import {calculateWinner} from "./utils/utils.js";
+import {calculateWinner, isBoardFull} from "./utils/utils.js";
 
 export default function App() {
   const [gameMode, setGameMode] = useState(null)
@@ -85,6 +85,7 @@ export default function App() {
                 <StatusMessage
                   winner={winner}
                   xIsNext={xIsNext}
+                  isDraw={!winner && isBoardFull(currentSquares)}
                 />
               </GlassCard>
               <GlassCard className="p-6">

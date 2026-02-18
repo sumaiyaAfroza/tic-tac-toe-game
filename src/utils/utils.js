@@ -12,3 +12,7 @@ export function calculateWinner (squares) {
   }
   return null;
 }
+
+export const isBoardFull = (squares) => {
+  return squares.every(square => square !== null)
+}
