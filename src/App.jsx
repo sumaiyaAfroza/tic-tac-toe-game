@@ -33,6 +33,14 @@ export default function App() {
       return;
     }
 
+    // AI
+    if(gameMode && gameMode !== "human") {
+      if(!xIsNext) {
+        console.log('block x : Ai not use x')
+        return;
+      }
+    }
+
     // console.log(index)
     const next = [...currentSquares]
     next[index] = xIsNext ? PLAYER_X : PLAYER_O
