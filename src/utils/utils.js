@@ -16,3 +16,11 @@ export function calculateWinner (squares) {
 export const isBoardFull = (squares) => {
   return squares.every(square => square !== null)
 }
+
+// খালি ঘর গুলো বের করো
+function getAvailableMoves(squares) {
+  return squares.map((squares, index) => squares === null ? index : null)
+    .filter(index => index !== null)
+}
+
+
